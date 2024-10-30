@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cr0aqd1tj8n4f"]
+
+[node name="Hole" type="CSGCylinder3D"]
+operation = 2
+radius = 1.0
+height = 5.0
+sides = 16

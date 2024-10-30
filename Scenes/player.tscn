@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://cyni5wycbgtfe"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_kpx8t"]
+[ext_resource type="Shader" path="res://Shaders/holeshader.gdshader" id="2_6jmxv"]
+[ext_resource type="Texture2D" uid="uid://c536t74caovt2" path="res://icon.svg" id="3_2d5vj"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ab7h5"]
+height = 0.2
+radius = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_y2u0g"]
+height = 5.0
+radius = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h1ojc"]
+render_priority = 0
+shader = ExtResource("2_6jmxv")
+shader_parameter/warp_ScreenSpace = false
+shader_parameter/texture_albedo = ExtResource("3_2d5vj")
+
+[sub_resource type="TorusMesh" id="TorusMesh_xpy83"]
+inner_radius = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5uagk"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_ilc8s"]
+inner_radius = 0.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_86jhq"]
+size = Vector3(10, 1, 10)
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_kpx8t")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, -1.66811e-08, 8.58166e-08, 0, 0.981627, 0.190809, -8.74228e-08, 0.190809, -0.981627, 0, 3, -5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_ab7h5")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_y2u0g")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_h1ojc")
+mesh = SubResource("TorusMesh_xpy83")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 22.67, 0, 0, 0, 1, 0, -2.3, 0)
+material_override = SubResource("StandardMaterial3D_5uagk")
+mesh = SubResource("TorusMesh_ilc8s")
+
+[node name="Area3D2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.338446, 0)
+shape = SubResource("BoxShape3D_86jhq")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="Area3D2" to="." method="_on_area_3d_2_body_entered"]
