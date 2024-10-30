@@ -6,7 +6,7 @@
 <br>
 - Size changing
 <br>
-- Simple spatial shader from GodotShaders - https://godotshaders.com/shader/slipgate-texture-warp
+- Spatial shader from GodotShaders - https://godotshaders.com/shader/slipgate-texture-warp
 <br>
 <h2>How to use </h2>
 1. Add CSGCombiner3D to your scene and turn "Use Collision" on
